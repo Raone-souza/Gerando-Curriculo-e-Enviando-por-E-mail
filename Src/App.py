@@ -7,9 +7,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 
+
 # Inicia o processo, 
 # saudando o usuário e explicando que ele vai preencher as informações do currículo
-
 print("Bem-vindo(as), agora vamos prencher todas as informações para fazer seu curriculo! \n")
 pdf = FPDF()
 pdf.add_page()
@@ -17,6 +17,7 @@ pdf.set_font('Arial', 'B', 24)
 nome = input("informe seu nome completo: ")
 pdf.cell(w=0, h=20, txt=f" {nome} ", ln=1, align="C")
 print("\n")
+
 
 # Inicia a seção de informações pessoais
 print("adicionado informações pessoais ")
@@ -36,6 +37,7 @@ pdf.cell(w=0, h=7, txt=f"LinkedIn: {user_linkdin}", ln=1)
 user_github = input("informe seu perfil do GitHub: ")
 pdf.cell(w=0, h=7, txt=f"GitHub: {user_github}", ln=1)
 print("\n")
+
 
 # Inicia a seção de objetivo profissional
 print("adicionado objetivo profissional")
@@ -145,8 +147,6 @@ else:
 
 
 # Etapa de envio do PDF por e-mail via SMTP
-
-"""
 # Configurações do e-mail
 server_smtp = "smtp.gmail.com"
 port = 587
@@ -165,7 +165,7 @@ message["Subject"] = subject
 message.attach(MIMEText(body, "plain"))
 
 
-# Anexando o arquivo PDF
+# Anexando o arquivo PDF no E-mail
 pdf_filename = "Currículo.pdf"
 with open(pdf_filename, "rb") as attachment:
     part = MIMEBase("application", "pdf")
@@ -179,7 +179,7 @@ f"attachment; filename= {pdf_filename}",
 
 message.attach(part)
 
-# Enviando o e-mail
+# Enviando o e-mail e fazendo uma verificação se o envio foi corretamente
 try:
     server = smtplib.SMTP(server_smtp, port)
     server.starttls()
@@ -190,4 +190,3 @@ except Exception as e:
     print(f"Houve algum erro: {e}")
 finally:
     server.quit()
-    """
